@@ -1,0 +1,12 @@
+@startuml NPI-PAGAMENTO
+actor Aluno
+Aluno --> (Controlar compras)
+Aluno --> (Controlar perfil)
+Aluno --> (Controlar consumo)
+
+actor Admin
+Admin --> (Controlar estoque)
+Admin --> (Emitir relatório)
+
+Aluno <|-- Admin
+@enduml

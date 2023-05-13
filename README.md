@@ -1,2 +1,3 @@
 # yasgcg
-Yet Another Sistema de Gestão de Controle de Gastos
+
+# Sistema de controle de gastos
