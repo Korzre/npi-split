@@ -39,15 +39,6 @@ ACESSO{
    int fk_produto_id_produto FK
   }
 
-  TIMESTAMP{
-    int id_timestamp 
-    String type
-    String descricao
-    timestamp data
-    tring nome
-    timestamp data
-    
-  }
   
 
 
