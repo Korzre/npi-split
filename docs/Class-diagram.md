@@ -25,7 +25,7 @@ classDiagram
         +getNome()
         +getSenha()
         +getEmail()
-        +getEmail()
+        +getMatricula()
 
         +Usuario(String nome, String senha, String email, String matricula, int id_acesso)  
         +cadastrarPerfil()
@@ -49,7 +49,6 @@ classDiagram
 
         +setDescricao(String descricao)
         +setQuantidade(int qtd)
-        setPreco(decimal preco)
         setPreco(decimal preco)
 
         Produto(String descricao, int qtd, decimal preco, int id_user)
