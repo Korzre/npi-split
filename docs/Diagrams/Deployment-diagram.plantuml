@@ -1,0 +1,24 @@
+@startuml Diagrama de implantação
+skinparam nodesep 50
+skinparam ranksep 40
+skinparam shadowing false
+
+package "Unifil" {
+    node "Usuários do NPI"
+    node "Servidor"
+    database "Banco de Dados"
+}
+
+' Define a conexão entre os nós
+' Usuários da Universidade -> Servidor -> Banco de Dados
+"Usuários do NPI" --> "Servidor"
+"Servidor" --> "Banco de Dados"
+
+/'
+"Usuários da Universidade": representa os usuários autorizados da universidade que acessam o site hospedado no servidor.
+"Servidor": é o servidor que hospeda o site. Ele recebe as solicitações dos usuários, processa as requisições e serve as páginas web.
+"Banco de Dados": representa o banco de dados utilizado pelo site. Ele armazena os dados necessários para o funcionamento do site, como informações dos usuários, conteúdo do site, entre outros.
+Este diagrama mostra a conexão entre os usuários, o servidor e o banco de dados, ilustrando a implantação dos componentes dentro do contexto da universidade. 
+'/
+
+@enduml

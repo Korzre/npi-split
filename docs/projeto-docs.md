@@ -1,5 +1,5 @@
 
-# Diagrama de Caso de Uso
+# Docs 📄
 
 <img src="casodeuso_update.png">
 
@@ -44,3 +44,5 @@ Esse (RFN) trata da emissão de todos os relatórios do sistema
 * ...
 
 ---
+
+**⚠️ Na 📁 Diagrams tem todos os diagramas do projeto. ⚠️**

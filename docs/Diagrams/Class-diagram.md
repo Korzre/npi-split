@@ -72,12 +72,5 @@ classDiagram
         +deletarProdutocons(int id_produto_cons)
     }
 
-    class TIMESTAMP{
-        - int id_timestamp 
-        - String type
-        - String descricao
-        - String nome
-        - timestamp data
-  }
 
 ```
