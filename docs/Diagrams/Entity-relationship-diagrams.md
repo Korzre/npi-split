@@ -34,7 +34,7 @@ ACESSO{
 
   PRODUTO_CONSUMIDO{
    int id_produto_cons PK  
-   String Nome
+   String descricao
    int quantidade
    int fk_produto_id_produto FK
   }
