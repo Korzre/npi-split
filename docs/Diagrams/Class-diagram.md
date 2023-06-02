@@ -53,7 +53,6 @@ classDiagram
 
         Produto(String descricao, int qtd, decimal preco, int id_user)
 
-
         +cadastrarProduto()
         +atualizarProduto()
         +deletarProduto(int id_produto)

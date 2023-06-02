@@ -6,6 +6,13 @@ stateDiagram
   AguardandoDados --> DadosInvalidos: Dados não recebidos
   CriandoProduto --> ProdutoCriado: Produto criado com sucesso
   CriandoProduto --> CriacaoInvalida: Dados inválidos
+  
+  AguardandoOperacao --> AtualizandoProduto
+
+AguardandoOperacao -->  LendoProduto
+
+AguardandoOperacao -->  DeletandoProduto
+
   AtualizandoProduto --> ProdutoAtualizado: Produto atualizado com sucesso
   AtualizandoProduto --> AtualizacaoInvalida: Dados inválidos
   LendoProduto --> ProdutoLido: Produto encontrado
