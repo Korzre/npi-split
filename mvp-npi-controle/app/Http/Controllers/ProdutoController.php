@@ -20,9 +20,6 @@ class ProdutoController extends Controller
 
         return view('compras.compra', ['produtos' => $produtos, 'total' => $total]);
     }
-    
-
-    
 
     public function create(){
         return view('compras.create');
@@ -30,7 +27,11 @@ class ProdutoController extends Controller
 
     public function store(Request $request){
 
+        $ultimoProduto = Produto::latest('id')->first();
+        $novoID = $ultimoProduto ? $ultimoProduto->id+1 : 1;
+
         $produto = new Produto();
+        $produto->id = $novoID;
         $produto->descricao=$request->input('descricao');
         $produto->preco=$request->input('preco');
         $produto->quantidade=$request->input('quantidade');
@@ -72,8 +73,6 @@ class ProdutoController extends Controller
         $produto->quantidade= $request->input('quantidade');
 
         $produto->save();
-
-        $produtos = Produto::all();
         return redirect('http://127.0.0.1:8000/compras/')->with('msg', 'Atualizado com sucesso');
     }
 
