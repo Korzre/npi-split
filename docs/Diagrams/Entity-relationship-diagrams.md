@@ -36,6 +36,7 @@ ACESSO{
    int id_produto_cons PK  
    String descricao
    int quantidade
+   int fk_usuario_id_user FK
    int fk_produto_id_produto FK
   }
 

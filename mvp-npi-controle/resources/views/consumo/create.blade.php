@@ -8,6 +8,12 @@
     <title>{{ env('APP_NAME') }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    <script>
+        function changeImage(element, newSrc){
+            element.src=newSrc
+        }
+    </script>
+
 </head>
 
 <body>
@@ -58,7 +64,7 @@
                     <ul class="ul2">
 
                         <a href="http://127.0.0.1:8000/compras/compra">
-                            <li class="li2" style="opacity:1;">
+                            <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{ asset('/icons/shop.svg') }}" width="25px"
                                         height="30px" alt="Erro">
@@ -68,7 +74,7 @@
                         </a>
 
                         <a href="http://127.0.0.1:8000/consumo">
-                        <li class="li2" style="opacity:0.6;">
+                        <li class="li2" style="opacity:1;">
                             <div class="container1">
                                 <img style="margin-left: 40px;" src="{{asset('/icons/consumo.svg')}}" width="25px" height="30px"
                                     alt="Erro">
@@ -119,11 +125,11 @@
                 
                 <div class="container-compras">
                     <div class="tab-listar">
-                        <div class="status">Compras</div>
+                        <div class="status">Todos os produtos</div>
 
                         <div class="table-container">
                             @if (($produtos->count()) == 0)
-                                ⚠️ &nbsp;&nbsp;Não tem nenhuma compra registrada!
+                                ⚠️ &nbsp;&nbsp;Não tem nenhum produto!
                             @else
                             <table>
                                 <thead>
@@ -131,7 +137,6 @@
                                         <th>Descrição</th>
                                         <th>Quantidade</th>
                                         <th>Preço</th>
-                                        <th>Data de criação</th>
                                         <th colspan="2"></th>
                                     </tr>
                                 </thead>
@@ -140,16 +145,13 @@
                                     <tr>
                                         <td>{{$p->descricao}}</td>
                                         <td>{{$p->quantidade}}</td>
-                                        <td>{{$p->preco}}</td>
-                                        <td>
-                                           <div class="border_data">{{$p->created_at}}</div>
-                                          
-                                        </td>
-
-                                        <td title="Exibir"><a class="btn-v" href="{{ route('compras.show', $p->id) }}"><img src="/icons/view.svg"
-                                                    width="20px" height="20px" alt=""></a></td>
-                                        <td title="Editar"><a class="btn-v" href="{{ route('compras.edit', $p->id) }}"><img src="/icons/edit.svg"
-                                                    width="20px" height="20px" alt=""></a></td>
+                                        <td>R${{$p->preco}}</td>
+                                       
+                                        <td title="Adicionar"><a class="btn-v" href="{{ route('consumo.add', $p->id) }}">
+                                            <img onmouseover="changeImage(this, '/icons/add-consumo-hover.svg')" 
+                                            onmouseout="changeImage(this, '/icons/add-consumo.svg')" id="image"  src="/icons/add-consumo.svg"
+                                                    width="20px" height="20px" alt="" /></a></td>
+                
                                     </tr>
                                     @endforeach
 
@@ -159,21 +161,13 @@
                             @endif
                         </div>
                         
-                        <a style="margin-top:15px;" class="btn-produto" href="http://127.0.0.1:8000/compras/create">
-                            <img class="img-add" style="margin-left:10px;" src="{{asset('/icons/add.svg')}}" width="10px"
-                                height="10px" alt="">
-                            <article class="add">Adicionar produto</article>
-                        </a>
+                        
                     </div>
 
                     <div class="tab-gastos">
-                        <article class="text1"> Gastos</article> 
-
-                        <article style="font-size: 28px;" class="text2">R${{$total}}</article>
                         
-                        <img class="img-g" src="/icons/gastos.svg" width="80px" height="80px" alt="">
                         
-                        <article class="text4">Produtos comprados</article>
+                        <article class="text4">Produtos consumidos</article>
 
                         <article style="font-size:28px;" class="text5">{{$produtos->count()}}</article>
 

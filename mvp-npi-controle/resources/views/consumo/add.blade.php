@@ -8,6 +8,11 @@
     <title>{{ env('APP_NAME') }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    <script>
+        function limpar(){
+            document.getElementById('quantidade').value = ''
+        }
+    </script>
 </head>
 
 <body>
@@ -57,8 +62,8 @@
                 <div class="menu">
                     <ul class="ul2">
 
-                        <a href="http://127.0.0.1:8000/compras/compra">
-                            <li class="li2" style="opacity:1;">
+                        <a href="http://127.0.0.1:8000/compras/">
+                            <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{ asset('/icons/shop.svg') }}" width="25px"
                                         height="30px" alt="Erro">
@@ -67,15 +72,13 @@
                             </li>
                         </a>
 
-                        <a href="http://127.0.0.1:8000/consumo">
-                        <li class="li2" style="opacity:0.6;">
+                        <li class="li2" style="opacity:1;">
                             <div class="container1">
                                 <img style="margin-left: 40px;" src="{{asset('/icons/consumo.svg')}}" width="25px" height="30px"
                                     alt="Erro">
                                 <span style="margin-left: 15px;margin-top:15px">Consumo</span>
                             </div>
                         </li>
-                        </a>
 
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
@@ -101,7 +104,7 @@
                             </div>
                         </li>
 
-                        <a href="http://127.0.0.1:8000/sessao/">
+                        <a href="http://127.0.0.1:5500/pages/">
                             <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{asset('/icons/logout.svg')}}" width="25px"
@@ -117,77 +120,52 @@
                 <!-- O meu canvas é esse aqui!-->
                 
                 
-                <div class="container-compras">
-                    <div class="tab-listar">
-                        <div class="status">Compras</div>
-
-                        <div class="table-container">
-                            @if (($produtos->count()) == 0)
-                                ⚠️ &nbsp;&nbsp;Não tem nenhuma compra registrada!
-                            @else
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Descrição</th>
-                                        <th>Quantidade</th>
-                                        <th>Preço</th>
-                                        <th>Data de criação</th>
-                                        <th colspan="2"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($produtos as $p)
-                                    <tr>
-                                        <td>{{$p->descricao}}</td>
-                                        <td>{{$p->quantidade}}</td>
-                                        <td>{{$p->preco}}</td>
-                                        <td>
-                                           <div class="border_data">{{$p->created_at}}</div>
-                                          
-                                        </td>
-
-                                        <td title="Exibir"><a class="btn-v" href="{{ route('compras.show', $p->id) }}"><img src="/icons/view.svg"
-                                                    width="20px" height="20px" alt=""></a></td>
-                                        <td title="Editar"><a class="btn-v" href="{{ route('compras.edit', $p->id) }}"><img src="/icons/edit.svg"
-                                                    width="20px" height="20px" alt=""></a></td>
-                                    </tr>
-                                    @endforeach
-
-
-                                </tbody>
-                            </table>
-                            @endif
+                <form class="form1" id="save-produto" method="POST" action="{{ route('consumo.store', $produto->id ) }}">
+                    <div class="status">Adicionar produto</div>
+                    @csrf
+                    <div class="spacex">
+                        <div class="box">
+                            <label for="textbox">Descrição</label>
+                            <div>
+                                <input style="border: 1px solid #F08223;background: #E9E9E9;color:rgb(0, 0, 0,.4)" class="caixa" type="text" id="descricao" name="descricao" disabled required value="{{$produto->descricao}}">
+                            </div>
                         </div>
-                        
-                        <a style="margin-top:15px;" class="btn-produto" href="http://127.0.0.1:8000/compras/create">
-                            <img class="img-add" style="margin-left:10px;" src="{{asset('/icons/add.svg')}}" width="10px"
-                                height="10px" alt="">
-                            <article class="add">Adicionar produto</article>
-                        </a>
+
+                        <div class="box">
+                            <label for="textbox">Preço</label>
+                            <div>
+                                <input style="border: 1px solid #F08223;background: #E9E9E9;color:rgb(0, 0, 0,.4)" class="caixa1" type="number" id="preco" name="preco" disabled required value="{{$produto->preco}}">
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="tab-gastos">
-                        <article class="text1"> Gastos</article> 
+                    <div class="spacex">
+                        <div class="box">
+                            <label for="textbox">Quantidade</label>
+                            <div>
+                                <input class="caixa" type="number" id="quantidade" name="quantidade">
+                            </div>
+                        </div>
 
-                        <article style="font-size: 28px;" class="text2">R${{$total}}</article>
-                        
-                        <img class="img-g" src="/icons/gastos.svg" width="80px" height="80px" alt="">
-                        
-                        <article class="text4">Produtos comprados</article>
+                        <div style="margin-left: 0px;" class="box">
+                            <div class="input-group">
+                                <button title="Salvar produto" form="save-produto" type="submit" class="btn-op">
+                                    <img style="margin-left: 25px;margin-top:0px;" src="/icons/save.svg" width="22px" height="22px" alt="">
+                                    <label class="save-text">Salvar</label> 
+                                </button>
 
-                        <article style="font-size:28px;" class="text5">{{$produtos->count()}}</article>
+                                <button title="Limpar" class="btn-op" type="button" onclick="limpar()">
+                                    <img  style="cursor: pointer;margin-left: 10px;margin-top:0px;" src="{{asset('/icons/clear.svg')}}" width="30px" height="30px" alt="">
+                                    <label class="save-text" >Limpar</label> 
+                                </button>
+                                
+                            </div>
+                        </div>
 
-                        <img class="img-g1" src="/icons/nprosutos.svg" width="80px" height="80px" alt="">
                     </div>
-
-
-
-
-                </div>
-
-            </div>
+                </form>
             
-
 
             <!-- O meu canvas é esse aqui!-->
 

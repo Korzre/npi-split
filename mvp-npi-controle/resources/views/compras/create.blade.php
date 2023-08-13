@@ -137,7 +137,7 @@
                         <div class="box">
                             <label for="textbox">Preço</label>
                             <div>
-                                <input class="caixa1" type="number" id="preco" name="preco" placeholder="Digite o preço">
+                                <input class="caixa1" type="text" id="preco" name="preco" placeholder="Digite o preço">
                             </div>
                         </div>
 

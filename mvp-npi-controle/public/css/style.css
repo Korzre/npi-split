@@ -180,7 +180,7 @@ body {
 .letra-m {
     width: 50px;
     height: 50px;
-    padding: 5px;
+    padding: 4px;
     margin-right: 10px;
     border-radius: 3px;
 
@@ -273,7 +273,7 @@ text {
 
 .table-container {
     font-family: 'Lato';
-    width: 540px;
+    width: 610px;
     height: 240px;
     padding: 8px;
     margin-left: 30px;
@@ -288,7 +288,7 @@ table {
 
 th,
 td {
-    padding: 6px;
+    padding: 12px;
     border-top: 2px solid #89929A;
     border-bottom: 2px solid #89929A;
 
@@ -333,6 +333,17 @@ th:last-child td {
 .btn-v {
     padding: 1px;
 
+
+}
+
+.border_data{
+    background-color: #EAF8F3;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-produto {

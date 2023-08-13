@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
+    public $id_usuario=1;
+
     public function compra(){
-        $produtos = Produto::all();
+
+        $produtos = Produto::where('id_usuario', $this->id_usuario)->get();
         $total = $this->getTotal();
 
         return view('compras.compra', ['produtos' => $produtos, 'total' => $total]);
@@ -15,8 +18,9 @@ class ProdutoController extends Controller
     
 
     public function index(){
-        $produtos = Produto::all();
-        $total = $this->getTotal(); // Chama o método getTotal() para obter o valor total
+ 
+        $produtos = Produto::where('id_usuario',$this->id_usuario)->get();
+        $total = $this->getTotal(); 
 
         return view('compras.compra', ['produtos' => $produtos, 'total' => $total]);
     }
@@ -27,11 +31,11 @@ class ProdutoController extends Controller
 
     public function store(Request $request){
 
-        $ultimoProduto = Produto::latest('id')->first();
-        $novoID = $ultimoProduto ? $ultimoProduto->id+1 : 1;
+        #$ultimoProduto = Produto::latest('id')->first();
+        #$novoID = $ultimoProduto ? $ultimoProduto->id+1 : 1;
 
         $produto = new Produto();
-        $produto->id = $novoID;
+        #$produto->id = $novoID;
         $produto->descricao=$request->input('descricao');
         $produto->preco=$request->input('preco');
         $produto->quantidade=$request->input('quantidade');
@@ -83,7 +87,8 @@ class ProdutoController extends Controller
         $produto->delete();
 
         $produtos = Produto::all();
-        return redirect('http://127.0.0.1:8000/compras/')->with('msg', 'Atualizado com sucesso');    }
+        return redirect('http://127.0.0.1:8000/compras/')->with('msg', 'Atualizado com sucesso')->with("produtos", $produtos);
+        }
 
     public function menu(){
         return view('compras.menu');
@@ -91,7 +96,9 @@ class ProdutoController extends Controller
 
     public function getTotal()
     {
-        $total = Produto::selectRaw('SUM(quantidade * preco) as total')->value('total');
+        $total = Produto::where('id_usuario', $this->id_usuario)
+                        ->selectRaw('SUM(quantidade * preco) as total')
+                        ->value('total');
         return $total;
     }
 
