@@ -16,6 +16,7 @@ return new class extends Migration
                 $table->integer("quantidade");
                 $table->unsignedInteger("id_usuario");
                 $table->unsignedInteger("id_produto");
+                $table->boolean("pago")->default(false);
                 $table->timestamps();
 
                 $table->foreign("id_usuario")

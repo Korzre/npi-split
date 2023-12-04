@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <script>
-        function limpar(){
+        function limpar() {
             document.getElementById('quantidade').value = ''
         }
     </script>
@@ -23,8 +23,8 @@
 
                 <div class="div1 ">
                     <div style="margin-left:50px" class="container1">
-                        <span class="text"><a href="http://127.0.0.1:8000/compras/menu"><label
-                                    class="letra-m" for="">M</label>Menu principal</a></span>
+                        <span class="text"><a href="http://127.0.0.1:8000/menu"><label class="letra-m"
+                                    for="">M</label>Menu principal</a></span>
                         <span class="icon"><img src="{{ asset('/icons/arrow-down.svg') }}" width="12px"
                                 height="12px" alt=""></span>
                     </div>
@@ -74,32 +74,32 @@
 
                         <li class="li2" style="opacity:1;">
                             <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/consumo.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
+                                <img style="margin-left: 40px;" src="{{ asset('/icons/consumo.svg') }}" width="25px"
+                                    height="30px" alt="Erro">
                                 <span style="margin-left: 15px;margin-top:15px">Consumo</span>
                             </div>
                         </li>
 
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/rateio.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
+                                <img style="margin-left: 40px;" src="{{ asset('/icons/rateio.svg') }}" width="25px"
+                                    height="30px" alt="Erro">
                                 <span style="margin-left: 15px;margin-top:15px">Rateio</span>
                             </div>
                         </li>
 
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/dividas.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
+                                <img style="margin-left: 40px;" src="{{ asset('/icons/dividas.svg') }}" width="25px"
+                                    height="30px" alt="Erro">
                                 <span style="margin-left: 15px;margin-top:15px">Dívidas</span>
                             </div>
                         </li>
 
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/perfil.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
+                                <img style="margin-left: 40px;" src="{{ asset('/icons/perfil.svg') }}" width="25px"
+                                    height="30px" alt="Erro">
                                 <span style="margin-left: 15px;margin-top:15px">Perfil</span>
                             </div>
                         </li>
@@ -107,8 +107,8 @@
                         <a href="http://127.0.0.1:5500/pages/">
                             <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
-                                    <img style="margin-left: 40px;" src="{{asset('/icons/logout.svg')}}" width="25px"
-                                        height="30px" alt="Erro">
+                                    <img style="margin-left: 40px;" src="{{ asset('/icons/logout.svg') }}"
+                                        width="25px" height="30px" alt="Erro">
                                     <span style="margin-left: 15px;margin-top:15px">Logout</span>
                                 </div>
                             </li>
@@ -116,67 +116,99 @@
 
                     </ul>
                 </div>
-
                 <!-- O meu canvas é esse aqui!-->
-                
-                
-                <form class="form1" id="save-produto" method="POST" action="{{ route('consumo.store', $produto->id ) }}">
+
+
+                <form class="form1" id="save-produto" method="POST"
+                    action="{{ route('consumo.store', $produto->id) }}">
                     <div class="status">Adicionar produto</div>
                     @csrf
                     <div class="spacex">
                         <div class="box">
                             <label for="textbox">Descrição</label>
                             <div>
-                                <input style="border: 1px solid #F08223;background: #E9E9E9;color:rgb(0, 0, 0,.4)" class="caixa" type="text" id="descricao" name="descricao" disabled required value="{{$produto->descricao}}">
+                                <input style="border: 1px solid #F08223;background: #E9E9E9;color:rgb(0, 0, 0,.4)"
+                                    class="caixa" type="text" id="descricao" name="descricao" disabled required
+                                    value="{{ $produto->descricao }}">
                             </div>
                         </div>
 
                         <div class="box">
                             <label for="textbox">Preço</label>
                             <div>
-                                <input style="border: 1px solid #F08223;background: #E9E9E9;color:rgb(0, 0, 0,.4)" class="caixa1" type="number" id="preco" name="preco" disabled required value="{{$produto->preco}}">
+                                <input style="border: 1px solid #F08223;background: #E9E9E9;color:rgb(0, 0, 0,.4)"
+                                    class="caixa1" type="number" id="preco" name="preco" disabled required
+                                    value="{{ $produto->preco }}">
                             </div>
                         </div>
 
                     </div>
+
+                    <input type="hidden" id="quantidade_disponivel" value="{{ $produto->quantidade }}">
 
                     <div class="spacex">
                         <div class="box">
                             <label for="textbox">Quantidade</label>
                             <div>
                                 <input class="caixa" type="number" id="quantidade" name="quantidade">
+                                <span id="mensagem_quantidade"></span>
+
                             </div>
                         </div>
 
                         <div style="margin-left: 0px;" class="box">
                             <div class="input-group">
                                 <button title="Salvar produto" form="save-produto" type="submit" class="btn-op">
-                                    <img style="margin-left: 25px;margin-top:0px;" src="/icons/save.svg" width="22px" height="22px" alt="">
-                                    <label class="save-text">Salvar</label> 
+                                    <img style="margin-left: 25px;margin-top:0px;" src="/icons/save.svg"
+                                        width="22px" height="22px" alt="">
+                                    <label class="save-text">Salvar</label>
                                 </button>
 
                                 <button title="Limpar" class="btn-op" type="button" onclick="limpar()">
-                                    <img  style="cursor: pointer;margin-left: 10px;margin-top:0px;" src="{{asset('/icons/clear.svg')}}" width="30px" height="30px" alt="">
-                                    <label class="save-text" >Limpar</label> 
+                                    <img style="cursor: pointer;margin-left: 10px;margin-top:0px;"
+                                        src="{{ asset('/icons/clear.svg') }}" width="30px" height="30px"
+                                        alt="">
+                                    <label class="save-text">Limpar</label>
                                 </button>
-                                
+
                             </div>
                         </div>
 
                     </div>
                 </form>
-            
 
-            <!-- O meu canvas é esse aqui!-->
+
+                <!-- O meu canvas é esse aqui!-->
+
+            </div>
 
         </div>
 
-    </div>
-
 
     </div>
 
+    <script>
+        function validarQuantidade() {
+            var quantidadeInput = document.getElementById('quantidade');
+            var quantidadeDisponivel = parseInt(document.getElementById('quantidade_disponivel').value);
 
+            // Verifica se o campo está vazio ou contém um número negativo
+            if (quantidadeInput.value === '' || parseFloat(quantidadeInput.value) < 0) {
+                alert('Por favor, insira uma quantidade válida.');
+            } else if (parseFloat(quantidadeInput.value) > quantidadeDisponivel) {
+                alert('Quantidade excede o disponível');
+                quantidadeInput.value = quantidadeDisponivel; // Define a quantidade para a disponível
+                document.getElementById('mensagem_quantidade').innerText = 'Quantidade excede o disponível';
+            } else {
+                quantidadeInput.setCustomValidity('');
+                document.getElementById('mensagem_quantidade').innerText = '';
+
+                // Aqui você pode adicionar lógica adicional antes de salvar na tabela
+                // Por exemplo, pode chamar a função que envia o formulário para salvar os dados
+                // document.getElementById('save-produto').submit();
+            }
+        }
+    </script>
 </body>
 
 </html>

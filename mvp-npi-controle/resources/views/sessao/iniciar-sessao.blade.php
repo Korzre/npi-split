@@ -33,19 +33,13 @@
               <ul class="ul2">
                 <li class="li2">
                   <div class="container1">
+                    <a href="{{route('google-redirect')}}">
                      <img style="margin-left: 40px;" src="{{asset('/icons/entrar.svg')}}" width="25px" height="30px" alt="Erro">
                      <span style="margin-left: 15px;margin-top:15px">Entrar</span>
-                  </div>
+                    </a>
+                    </div>
                 </li>
 
-                <li class="li2">
-                  <div class="container1">
-                     <img style="margin-left: 40px;" src="{{asset('/icons/cadastrar.svg')}}" width="25px" height="30px" alt="Erro">
-                     <span style="margin-left: 15px;margin-top:15px">Cadastrar</span>
-                  </div>
-                </li>
-
-                
               </ul>
             </div>
 

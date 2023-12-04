@@ -18,7 +18,7 @@
 
                 <div class="div1 ">
                     <div style="margin-left:50px" class="container1">
-                        <span class="text"><a href="http://127.0.0.1:8000/compras/menu"><label
+                        <span class="text"><a href="http://127.0.0.1:8000/menu"><label
                                     class="letra-m" for="">M</label>Menu principal</a></span>
                         <span class="icon"><img src="{{ asset('/icons/arrow-down.svg') }}" width="12px"
                                 height="12px" alt=""></span>
@@ -91,13 +91,15 @@
                             </div>
                         </li>
 
-                        <li class="li2" style="opacity:0.6;">
-                            <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/perfil.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
-                                <span style="margin-left: 15px;margin-top:15px">Perfil</span>
-                            </div>
-                        </li>
+                        <a href="http://127.0.0.1:8000/relatorios/">
+                            <li class="li2" style="opacity:0.6;">
+                                <div class="container1">
+                                    <img style="margin-left: 40px;" src="{{asset('/icons/relatorio.svg')}}" width="25px" height="30px"
+                                        alt="Erro">
+                                    <span style="margin-left: 15px;margin-top:15px">Relatórios</span>
+                                </div>
+                            </li>
+                        </a>
 
                         <a href="http://127.0.0.1:8000/sessao/">
                             <li class="li2" style="opacity:0.6;">
@@ -125,7 +127,7 @@
                         <div  class="box2">
                             <div class="contentx">
                                 <label style="margin-top: 40px;" for="textbox4">Descrição</label>
-                                <input class="caixa4" style=" margin-left: 40px;" type="text" id="textbox" disabled required value="{{$produto->descricao}}">
+                                <input class="caixa4" style="margin-left: 40px;" type="text" id="textbox" disabled required value="{{ isset($produto) ? $produto->descricao : '' }}">
                             </div>
 
                             <div style="margin-top: -150px;" class="contentx">

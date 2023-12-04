@@ -24,7 +24,7 @@
 
                 <div class="div1 ">
                     <div style="margin-left:50px" class="container1">
-                        <span class="text"><a href="http://127.0.0.1:8000/compras/menu"><label
+                        <span class="text"><a href="http://127.0.0.1:8000/menu"><label
                                     class="letra-m" for="">M</label>Menu principal</a></span>
                         <span class="icon"><img src="{{ asset('/icons/arrow-down.svg') }}" width="12px"
                                 height="12px" alt=""></span>

@@ -19,7 +19,7 @@
 
                 <div class="div1 ">
                     <div style="margin-left:50px" class="container1">
-                        <span class="text"><a href="http://127.0.0.1:8000/compras/menu"><label
+                        <span class="text"><a href="http://127.0.0.1:8000/menu"><label
                                     class="letra-m" for="">M</label>Menu principal</a></span>
                         <span class="icon"><img src="{{ asset('/icons/arrow-down.svg') }}" width="12px"
                                 height="12px" alt=""></span>
@@ -59,7 +59,7 @@
                     <ul class="ul2">
 
                         <a href="http://127.0.0.1:8000/compras/compra">
-                            <li class="li2" style="opacity:1;">
+                            <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{ asset('/icons/shop.svg') }}" width="25px"
                                         height="30px" alt="Erro">
@@ -68,6 +68,7 @@
                             </li>
                         </a>
 
+                        <a href="http://127.0.0.1:8000/consumo">
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
                                 <img style="margin-left: 40px;" src="{{asset('/icons/consumo.svg')}}" width="25px" height="30px"
@@ -75,7 +76,9 @@
                                 <span style="margin-left: 15px;margin-top:15px">Consumo</span>
                             </div>
                         </li>
+                        </a>
 
+                        <a href="http://127.0.0.1:8000/rateio">
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
                                 <img style="margin-left: 40px;" src="{{asset('/icons/rateio.svg')}}" width="25px" height="30px"
@@ -83,6 +86,9 @@
                                 <span style="margin-left: 15px;margin-top:15px">Rateio</span>
                             </div>
                         </li>
+                        </a>
+
+                        <a href="http://127.0.0.1:8000/dividas">
 
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
@@ -91,16 +97,19 @@
                                 <span style="margin-left: 15px;margin-top:15px">Dívidas</span>
                             </div>
                         </li>
+                    </a>
 
+                        <a href="http://127.0.0.1:8000/relatorios/">
                         <li class="li2" style="opacity:0.6;">
                             <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/perfil.svg')}}" width="25px" height="30px"
+                                <img style="margin-left: 40px;" src="{{asset('/icons/relatorio.svg')}}" width="25px" height="30px"
                                     alt="Erro">
-                                <span style="margin-left: 15px;margin-top:15px">Perfil</span>
+                                <span style="margin-left: 15px;margin-top:15px">Relatórios</span>
                             </div>
                         </li>
+                        </a>
 
-                        <a href="http://127.0.0.1:8000/sessao/">
+                        <a href="http://127.0.0.1:8000/login/">
                             <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{asset('/icons/logout.svg')}}" width="25px"

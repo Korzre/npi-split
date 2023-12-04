@@ -36,10 +36,9 @@ Esse (RFN) trata da emissão de todos os relatórios do sistema
 
 * Relatório dos produtos
 * Relatório de cada usuário
-* Relatório semanal
-* Relatório anual
-* Gráficos dos produtos mais consumidos
-* Relatórios personalizados
+* Relatório das dívidas
+* Relatório do rateio
+
 
 * ...
 

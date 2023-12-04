@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("senha",20);
             $table->string("email",100);
             $table->string("matricula",18);
+            $table->string("pix", 80)->nullable();
             $table->unsignedInteger("id_acesso");
             $table->timestamps();
 

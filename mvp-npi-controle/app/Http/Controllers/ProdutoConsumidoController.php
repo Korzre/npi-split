@@ -1,110 +1,140 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Produto;
 use App\Models\ProdutoConsumido;
 use Illuminate\Http\Request;
 
 class ProdutoConsumidoController extends Controller
 {
-    public int $id_usuario=1;
+    public int $id_usuario = 2;
 
-    public function consumido(){
+    public function index(Request $request)
+    {
+        $pesquisa = $request->input('pesquisa');
 
-        $produtos = ProdutoConsumido::select(
-            "produtos.descricao", 
-            "produto_consumido.quantidade",
-            "produtos.preco",
-            "produto_consumido.id_usuario"
+        $produto_consumido = ProdutoConsumido::where('id_usuario', $this->id_usuario);
 
-        )->join("produtos","produto_consumido.id_produto","=","produtos.id")
-        ->join("usuarios","produto_consumido.id_usuario","=","usuarios.id_usuario")
-        ->where("produto_consumido.id_usuario", $this->id_usuario)->get();
-        
-        return view('consumo.index', ['produtos' => $produtos]);
+        if ($pesquisa) {
+            $produto_consumido->whereHas('produto', function ($query) use ($pesquisa) {
+                $query->where('descricao', 'like', '%' . $pesquisa . '%');
+            });
+        }
 
+        $produto_consumido = $produto_consumido->get();
+        return view('consumo.index', ['produto_consumido' => $produto_consumido]);
     }
 
-
-    public function index(){
-
-        $produtos = ProdutoConsumido::select(
-            "produto_consumido.id_produto_cons",
-            "produtos.descricao", 
-            "produto_consumido.quantidade",
-            "produtos.preco",
-            "produto_consumido.id_usuario",
-            "produto_consumido.created_at"
-
-        )->join("produtos","produto_consumido.id","=","produtos.id")
-        ->join("usuarios","produto_consumido.id_usuario","=","usuarios.id_usuario")
-        ->where("produto_consumido.id_usuario", $this->id_usuario)->get();
-        
-        #dd($produtos);
-        return view('consumo.index')->with('produtos',$produtos);
-    }
-
-
-    public function create(){
+    public function create()
+    {
         $produtos = Produto::all();
         return view('consumo.create')->with("produtos", $produtos);
     }
 
-    public function store(Request $request, int $id_produto){
+    public function store(Request $request, int $id_produto)
+    {
+        $quantidade = $request->input('quantidade');
+        $id_usuario = $this->id_usuario;
+        $produto = Produto::find($id_produto);
 
-        $produto = new ProdutoConsumido();
+        // Verifica se o produto consumido já existe para o usuário
+        $produtoConsumido = ProdutoConsumido::where('id_usuario', $id_usuario)->where('id_produto', $id_produto)->first();
 
-        $produto->quantidade=$request->input('quantidade');
-        $produto->id_usuario=$this->id_usuario;
-        $produto->id=$id_produto;
-        $produto->save();
+        if ($produtoConsumido) {
+            $novaQuantidade = $produtoConsumido->quantidade + $quantidade;
 
-        return redirect('http://127.0.0.1:8000/consumo/');
+            if ($novaQuantidade <= $produto->quantidade) {
+                // Atualiza a quantidade no produto subtraindo a quantidade consumida
+                $novaQuantidadeProduto = $produto->quantidade - $quantidade;
 
-      }
-    
-    public function show(string $id){
+                // Verifica se a nova quantidade do produto não é negativa
+                if ($novaQuantidadeProduto < 0) {
+                    return redirect()->back()->with('error', 'Quantidade do produto não pode ser negativa');
+                }
+
+                $produto->quantidade = $novaQuantidadeProduto;
+                $produto->save();
+
+                $produtoConsumido->update(['quantidade' => $novaQuantidade]);
+                return redirect('http://127.0.0.1:8000/consumo/');
+            } else {
+                return redirect()->back()->with('error', 'Quantidade excede o disponível');
+            }
+        } else {
+            if ($quantidade === null || $quantidade < 0 || ($produto && $quantidade > $produto->quantidade)) {
+                return redirect()->back()->with('error', 'Quantidade inválida');
+            }
+
+            $produtoConsumido = new ProdutoConsumido([
+                'quantidade' => $quantidade,
+                'id_usuario' => $id_usuario,
+                'id_produto' => $id_produto,
+                'pago' => false
+            ]);
+
+            // Atualiza a quantidade no produto subtraindo a quantidade consumida
+            $novaQuantidadeProduto = $produto->quantidade - $quantidade;
+
+            // Verifica se a nova quantidade do produto não é negativa
+            if ($novaQuantidadeProduto < 0) {
+                return redirect()->back()->with('error', 'Quantidade do produto não pode ser negativa');
+            }
+
+            $produto->quantidade = $novaQuantidadeProduto;
+            $produto->save();
+
+            $produtoConsumido->save();
+            return redirect('http://127.0.0.1:8000/consumo/');
+        }
+    }
+
+    public function show(string $id)
+    {
         $produto = ProdutoConsumido::find($id);
-        if($produto){
+        if ($produto) {
             return view('consumo.show')->with("produto", $produto);
-        }else{
+        } else {
             return redirect('consumo.show')->with("msg", "Produto não encontrado!");
         }
     }
 
-    public function edit(string $id){
+    public function edit(string $id)
+    {
         $produto = ProdutoConsumido::find($id);
 
-        if($produto){
+        if ($produto) {
             return view("consumo.edit")->with("produto", $produto);
-        }else{
+        } else {
             return redirect("http://127.0.0.1:8000/consumo/");
         }
     }
 
-
-    public function update(string $id, Request $request){
+    public function update(string $id, Request $request)
+    {
 
         $produto = ProdutoConsumido::find($id);
-        $produto -> quantidade = $request->input("quantidade");
+        $produto->quantidade = $request->input("quantidade");
         $produto->save();
 
         return redirect('http://127.0.0.1:8000/consumo/')->with("msg", "Atualizado com sucesso!");
     }
 
-    public function destroy(string $id){
+    public function destroy(string $id)
+    {
         $produto = ProdutoConsumido::find($id);
-        $produto -> destroy();
+        $produto->destroy();
 
         return redirect('http://127.0.0.1:8000/consumo/')->with("msg", "Produto exluído com sucesso!");
     }
 
-    public function add(string $id){
+    public function add(string $id)
+    {
         $produto = Produto::find($id);
 
-        if($produto){
+        if ($produto) {
             return view("consumo.add")->with("produto", $produto);
-        }else{
+        } else {
             $produtos = Produto::all();
             return view("consumo.create")->with("produtos", $produtos);
         }

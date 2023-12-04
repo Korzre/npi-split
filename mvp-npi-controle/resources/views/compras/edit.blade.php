@@ -91,13 +91,15 @@
                             </div>
                         </li>
 
-                        <li class="li2" style="opacity:0.6;">
-                            <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/perfil.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
-                                <span style="margin-left: 15px;margin-top:15px">Perfil</span>
-                            </div>
-                        </li>
+                        <a href="http://127.0.0.1:8000/relatorios/">
+                            <li class="li2" style="opacity:0.6;">
+                                <div class="container1">
+                                    <img style="margin-left: 40px;" src="{{asset('/icons/relatorio.svg')}}" width="25px" height="30px"
+                                        alt="Erro">
+                                    <span style="margin-left: 15px;margin-top:15px">Relatórios</span>
+                                </div>
+                            </li>
+                        </a>
 
                         <a href="http://127.0.0.1:5500/pages/">
                             <li class="li2" style="opacity:0.6;">

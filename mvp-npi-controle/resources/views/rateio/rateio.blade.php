@@ -30,8 +30,8 @@
                         <div class="container1">
                             <span class="icon"><img src="{{ asset('/icons/pesquisar.svg') }}" width="32px"
                                     height="32px" alt=""></span>
-                            <span style="margin-left: 10px;margin-top:29px;" class="text"><input id="campoPesquisa"
-                                    class="textboxp" placeholder="Procurar" type="text"></span>
+                            <span style="margin-left: 10px;margin-top:29px;" class="text"><input class="textboxp"
+                                    placeholder="Procurar" type="text" disabled></span>
 
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                     <ul class="ul2">
 
                         <a href="http://127.0.0.1:8000/compras/compra">
-                            <li class="li2" style="opacity:1;">
+                            <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{ asset('/icons/shop.svg') }}" width="25px"
                                         height="30px" alt="Erro">
@@ -78,7 +78,7 @@
                         </a>
 
                         <a href="http://127.0.0.1:8000/rateio/">
-                            <li class="li2" style="opacity:0.6;">
+                            <li class="li2" style="opacity:1;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{ asset('/icons/rateio.svg') }}"
                                         width="25px" height="30px" alt="Erro">
@@ -100,14 +100,14 @@
                         <a href="http://127.0.0.1:8000/relatorios/">
                             <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
-                                    <img style="margin-left: 40px;" src="{{ asset('/icons/relatorio.svg') }}"
-                                        width="25px" height="30px" alt="Erro">
+                                    <img style="margin-left: 40px;" src="{{asset('/icons/relatorio.svg')}}" width="25px" height="30px"
+                                        alt="Erro">
                                     <span style="margin-left: 15px;margin-top:15px">Relatórios</span>
                                 </div>
                             </li>
-                        </a>
+                            </a>
 
-                        <a href="http://127.0.0.1:8000/login/">
+                        <a href="http://127.0.0.1:8000/sessao/">
                             <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
                                     <img style="margin-left: 40px;" src="{{ asset('/icons/logout.svg') }}"
@@ -125,102 +125,64 @@
 
                 <div class="container-compras">
                     <div class="tab-listar">
-                        <div class="status">Compras</div>
+                        <div class="status">Rateio</div>
+                  
 
-                        <div class="table-container">
-                            @if ($produtos->count() == 0)
-                                ⚠️ &nbsp;&nbsp;Não tem nenhuma compra registrada!
-                            @else
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Descrição</th>
-                                            <th>Quantidade</th>
-                                            <th>Preço</th>
-                                            <th>Data</th>
-                                            <th colspan="2"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($produtos as $p)
-                                            <tr>
-                                                <td>{{ $p->descricao }}</td>
-                                                <td>{{ $p->quantidade }}</td>
-                                                <td>{{ $p->preco }}</td>
-                                                <td>
-                                                    <div class="border_data">{{ $p->created_at }}</div>
-
-                                                </td>
-
-                                                <td title="Exibir"><a class="btn-v"
-                                                        href="{{ route('compras.show', $p->id) }}"><img
-                                                            src="/icons/view.svg" width="20px" height="20px"
-                                                            alt=""></a></td>
-                                                <td title="Editar"><a class="btn-v"
-                                                        href="{{ route('compras.edit', $p->id) }}"><img
-                                                            src="/icons/edit.svg" width="20px" height="20px"
-                                                            alt=""></a></td>
-                                            </tr>
-                                        @endforeach
+                    <div class="table-container">
+                        @if (($dados->count()) == 0)
+                        ⚠️ &nbsp;&nbsp;Não tem ninguém para pagar
+                        @else
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Comprador</th>
+                                    <th>Descrição</th>
+                                    <th>Quantidade Consumida</th>
+                                    <th>Preço</th>
+                                    <th>Valor a Pagar</th>
+                                    <th>Pix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($dados as $dado)
+                                    <tr>
+                                        <td>{{ $dado->nome_comprador }}</td>
+                                        <td>{{ $dado->descricao_produto }}</td>
+                                        <td>{{ $dado->quantidade_consumida }}</td>
+                                        <td>{{ $dado->preco_produto }}</td>
+                                        <td>{{ $dado->valor_a_pagar }}</td>
+                                        <td style="color: #cfad05;">{{ $dado->pix }}</td>
+                                    </tr>
+                                @endforeach
+                                @endif
 
 
-                                    </tbody>
-                                </table>
-                            @endif
-                        </div>
+                            </tbody>
+                        </table>
 
-                        <a style="margin-top:15px;" class="btn-produto" href="http://127.0.0.1:8000/compras/create">
-                            <img class="img-add" style="margin-left:10px;" src="{{ asset('/icons/add.svg') }}"
-                                width="10px" height="10px" alt="">
-                            <article class="add">Adicionar produto</article>
-                        </a>
                     </div>
-
-                    <div class="tab-gastos">
-                        <article class="text1"> Gastos</article>
-
-                        <article style="font-size: 28px;" class="text2">R${{ $total }}</article>
-
-                        <img class="img-g" src="/icons/gastos.svg" width="80px" height="80px" alt="">
-
-                        <article class="text4">Produtos comprados</article>
-
-                        <article style="font-size:28px;" class="text5">{{ $produtos->count() }}</article>
-
-                        <img class="img-g1" src="/icons/nprosutos.svg" width="80px" height="80px"
-                            alt="">
-                    </div>
-
-
 
 
                 </div>
 
+
+
             </div>
-
-
-
-            <!-- O meu canvas é esse aqui!-->
 
         </div>
 
+
+
+        <!-- O meu canvas é esse aqui!-->
+
+    </div>
+
     </div>
 
 
     </div>
 
-    <script>
-        document.getElementById('campoPesquisa').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                enviarFormularioPesquisa();
-            }
-        });
 
-        function enviarFormularioPesquisa() {
-            var valorPesquisa = document.getElementById('campoPesquisa').value;
-            window.location.href = 'http://127.0.0.1:8000/compras/compra?pesquisa=' + encodeURIComponent(valorPesquisa);
-        }
-    </script>
 </body>
 
 </html>

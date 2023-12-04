@@ -31,7 +31,7 @@
                         <div class="container1">
                             <span class="icon"><img src="{{ asset('/icons/pesquisar.svg') }}" width="32px"
                                     height="32px" alt=""></span>
-                            <span style="margin-left: 10px;margin-top:29px;" class="text"><input class="textboxp"
+                            <span style="margin-left: 10px;margin-top:29px;" class="text"><input id="campoPesquisa" class="textboxp"
                                     placeholder="Procurar" type="text"></span>
 
                         </div>
@@ -78,40 +78,45 @@
                         </li>
                         </a>
 
-                        <li class="li2" style="opacity:0.6;">
-                            <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/rateio.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
-                                <span style="margin-left: 15px;margin-top:15px">Rateio</span>
-                            </div>
-                        </li>
-
-                        <li class="li2" style="opacity:0.6;">
-                            <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/dividas.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
-                                <span style="margin-left: 15px;margin-top:15px">Dívidas</span>
-                            </div>
-                        </li>
-
-                        <li class="li2" style="opacity:0.6;">
-                            <div class="container1">
-                                <img style="margin-left: 40px;" src="{{asset('/icons/perfil.svg')}}" width="25px" height="30px"
-                                    alt="Erro">
-                                <span style="margin-left: 15px;margin-top:15px">Perfil</span>
-                            </div>
-                        </li>
-
-                        <a href="http://127.0.0.1:8000/sessao/">
+                        <a href="http://127.0.0.1:8000/rateio/">
                             <li class="li2" style="opacity:0.6;">
                                 <div class="container1">
-                                    <img style="margin-left: 40px;" src="{{asset('/icons/logout.svg')}}" width="25px"
-                                        height="30px" alt="Erro">
-                                    <span style="margin-left: 15px;margin-top:15px">Logout</span>
+                                    <img style="margin-left: 40px;" src="{{asset('/icons/rateio.svg')}}" width="25px" height="30px"
+                                        alt="Erro">
+                                    <span style="margin-left: 15px;margin-top:15px">Rateio</span>
                                 </div>
                             </li>
-                        </a>
-
+                            </a>
+    
+                            <a href="http://127.0.0.1:8000/dividas/">
+                            <li class="li2" style="opacity:0.6;">
+                                <div class="container1">
+                                    <img style="margin-left: 40px;" src="{{asset('/icons/dividas.svg')}}" width="25px" height="30px"
+                                        alt="Erro">
+                                    <span style="margin-left: 15px;margin-top:15px">Dívidas</span>
+                                </div>
+                            </li>
+                            </a>
+    
+                            <a href="http://127.0.0.1:8000/relatorios/">
+                                <li class="li2" style="opacity:0.6;">
+                                    <div class="container1">
+                                        <img style="margin-left: 40px;" src="{{asset('/icons/relatorio.svg')}}" width="25px" height="30px"
+                                            alt="Erro">
+                                        <span style="margin-left: 15px;margin-top:15px">Relatórios</span>
+                                    </div>
+                                </li>
+                                </a>
+    
+                            <a href="http://127.0.0.1:8000/sessao/">
+                                <li class="li2" style="opacity:0.6;">
+                                    <div class="container1">
+                                        <img style="margin-left: 40px;" src="{{asset('/icons/logout.svg')}}" width="25px"
+                                            height="30px" alt="Erro">
+                                        <span style="margin-left: 15px;margin-top:15px">Logout</span>
+                                    </div>
+                                </li>
+                            </a>
                     </ul>
                 </div>
 
@@ -123,7 +128,7 @@
                         <div class="status">Consumo</div>
 
                         <div class="table-container">
-                            @if (($produtos->count()) == 0)
+                            @if (($produto_consumido->count()) == 0)
                                 ⚠️ &nbsp;&nbsp;Não consumiu nenhum produto!
                             @else
                             <table>
@@ -132,24 +137,25 @@
                                         <th>Descrição</th>
                                         <th>Quantidade</th>
                                         <th>Data</th>
-                                        <th colspan="2"></th>
+                                        <!--<th colspan="2"></th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($produtos as $p)
+                                    @foreach ($produto_consumido as $p)
                                     <tr>
-                                        <td>{{$p->descricao}}</td>
+                                        <td>{{$p->produto->descricao}}</td>
                                         <td>{{$p->quantidade}}</td>
                                         <td>
                                            <div class="border_data">{{$p->created_at}}</div>
                                           
                                         </td>
-
+                                        <!--
                                         <td title="Exibir"><a class="btn-v" href="{{ route('consumo.show', $p->id_produto_cons) }}"><img src="/icons/view.svg"
                                                     width="20px" height="20px" alt=""></a></td>
                                         <td title="Editar"><a class="btn-v" href="{{ route('consumo.edit', $p->id_produto_cons) }}"><img src="/icons/edit.svg"
                                                     width="20px" height="20px" alt=""></a></td>
                                     </tr>
+                                -->
                                     @endforeach
 
 
@@ -172,13 +178,10 @@
                         
                         <article class="text4">Produtos consumidos</article>
 
-                        <article style="font-size:28px;" class="text5">{{$produtos->count()}}</article>
+                        <article style="font-size:28px;" class="text5">{{$produto_consumido->count()}}</article>
 
                         <img class="img-g1" src="/icons/nprosutos.svg" width="80px" height="80px" alt="">
                     </div>
-
-
-
 
                 </div>
 
@@ -195,7 +198,18 @@
 
     </div>
 
+<script>
+     document.getElementById('campoPesquisa').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            enviarFormularioPesquisa();
+        }
+    });
 
+    function enviarFormularioPesquisa() {
+        var valorPesquisa = document.getElementById('campoPesquisa').value;
+        window.location.href = 'http://127.0.0.1:8000/compras/compra?pesquisa=' + encodeURIComponent(valorPesquisa);
+    }
+</script>
 </body>
 
 </html>

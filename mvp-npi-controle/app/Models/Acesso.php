@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Acesso extends Model
 {
     use HasFactory;
-    protected $table = 'usuarios';
+    protected $table = 'acessos';
     protected $fillable = [
         'acesso'
     ];
