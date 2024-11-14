@@ -1,0 +1,90 @@
+@startuml
+actor "Usuário (Aluno)" as usuario
+participant "View: index.blade.php" as view
+participant "ProdutoConsumidoController" as produtoConsumidoController
+database "Model: Produto" as produtoModel
+database "Model: ProdutoConsumido" as produtoConsumidoModel
+
+== Autenticação ==
+activate usuario
+usuario -> view: Acessa a página principal
+activate view
+deactivate usuario
+
+== Listar Produtos Consumidos ==
+view -> produtoConsumidoController: Envia solicitação para listar consumo
+activate produtoConsumidoController
+produtoConsumidoController -> produtoConsumidoModel: Solicitação para listar consumo do usuário logado
+activate produtoConsumidoModel
+produtoConsumidoModel --> produtoConsumidoController: Lista de consumo
+deactivate produtoConsumidoModel
+deactivate produtoConsumidoController
+
+produtoConsumidoController -> view: Retorna lista de consumo
+deactivate produtoConsumidoController
+activate view
+deactivate view
+
+== Controlar Consumo ==
+usuario -> view: Acessa a página de controle de consumo
+activate view
+view -> produtoConsumidoController: Envia solicitação para controlar consumo
+deactivate view
+activate produtoConsumidoController
+
+produtoConsumidoController -> produtoModel: Consulta dados do produto
+activate produtoModel
+produtoModel --> produtoConsumidoController: Dados do produto
+deactivate produtoModel
+
+produtoConsumidoController -> produtoConsumidoModel: Atualiza ProdutoConsumido
+activate produtoConsumidoModel
+deactivate produtoConsumidoModel
+deactivate produtoConsumidoController
+
+== Atualizar Consumo ==
+usuario -> view: Seleciona produto para atualizar consumo
+activate view
+view -> produtoConsumidoController: Envia solicitação para atualizar consumo
+deactivate view
+activate produtoConsumidoController
+
+produtoConsumidoController -> produtoConsumidoModel: Consulta dados do ProdutoConsumido
+activate produtoConsumidoModel
+produtoConsumidoModel --> produtoConsumidoController: Dados do ProdutoConsumido
+deactivate produtoConsumidoModel
+
+produtoConsumidoController -> view: Retorna dados do ProdutoConsumido
+deactivate produtoConsumidoController
+activate view
+deactivate view
+
+== Excluir Consumo ==
+usuario -> view: Seleciona produto para excluir consumo
+activate view
+view -> produtoConsumidoController: Envia solicitação para excluir consumo
+deactivate view
+activate produtoConsumidoController
+
+produtoConsumidoController -> produtoConsumidoModel: Exclui ProdutoConsumido
+activate produtoConsumidoModel
+deactivate produtoConsumidoModel
+deactivate produtoConsumidoController
+
+== Listar Consumo ==
+usuario -> view: Acessa a página de listagem de consumo
+activate view
+view -> produtoConsumidoController: Envia solicitação para listar consumo
+deactivate view
+activate produtoConsumidoController
+
+produtoConsumidoController -> produtoConsumidoModel: Lista ProdutoConsumido
+activate produtoConsumidoModel
+produtoConsumidoModel --> produtoConsumidoController: Lista de consumo
+deactivate produtoConsumidoModel
+
+produtoConsumidoController -> view: Retorna lista de consumo
+deactivate produtoConsumidoController
+activate view
+deactivate view
+@enduml

@@ -1,0 +1,73 @@
+@startuml
+actor "Usuário (Aluno)" as usuario
+participant "View: login.index" as viewLogin
+participant "View: login.cadastro-usuario" as viewCadastro
+participant "LoginController" as loginController
+database "Model: Usuario" as modelUsuario
+
+== Autenticação ==
+activate usuario
+usuario -> loginController: Acessa a página de login
+activate loginController
+loginController -> viewLogin: Exibe a tela de login
+deactivate loginController
+
+viewLogin -> usuario: Informa opção de login com Google
+activate usuario
+deactivate usuario
+
+viewLogin -> loginController: Solicita autenticação com Google
+activate loginController
+deactivate loginController
+
+loginController -> Socialite: Redireciona para autenticação com Google
+activate Socialite
+deactivate Socialite
+
+Socialite -> Google: Inicia processo de autenticação
+activate Google
+deactivate Google
+
+Google --> Socialite: Retorna dados do usuário autenticado
+deactivate Google
+
+Socialite -> loginController: Callback com dados do usuário
+activate loginController
+loginController -> modelUsuario: Verifica se usuário já existe
+activate modelUsuario
+deactivate modelUsuario
+
+modelUsuario --> loginController: Retorna usuário existente ou nulo
+deactivate modelUsuario
+
+loginController -> viewLogin: Redireciona para login ou cadastro
+deactivate loginController
+
+viewLogin -> usuario: Exibe tela de login ou cadastro
+activate usuario
+deactivate usuario
+
+== Cadastro de Usuário ==
+usuario -> loginController: Acessa a página de cadastro
+activate loginController
+loginController -> viewCadastro: Exibe tela de cadastro
+deactivate loginController
+
+viewCadastro -> usuario: Preenche dados de cadastro
+activate usuario
+deactivate usuario
+
+viewCadastro -> loginController: Envia dados de cadastro
+activate loginController
+loginController -> modelUsuario: Cadastra novo usuário
+activate modelUsuario
+deactivate modelUsuario
+deactivate loginController
+
+loginController -> usuario: Redireciona para login
+deactivate loginController
+
+viewLogin -> usuario: Exibe tela de login
+activate usuario
+deactivate usuario
+@enduml

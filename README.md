@@ -31,7 +31,3 @@ de todos produtos entre os alunos do NPI.
 *   HTML
 *   CSS
 *   PostgreSQL
-
-
-***
-**No momento tem apenas o MVP do projeto pronto 😉**

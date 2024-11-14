@@ -1,0 +1,20 @@
+@startuml
+actor "Usuário (Aluno)" as usuario
+participant "DividasController" as controller
+database "Model: ProdutoConsumido" as model
+
+== Visualizar Dívidas ==
+
+activate usuario
+usuario -> controller: Acessa a página de dívidas
+activate controller
+
+controller -> model: Consulta produtos consumidos
+activate model
+model --> controller: Lista de produtos consumidos
+deactivate model
+
+controller -> usuario: Retorna lista de dívidas
+deactivate controller
+
+@enduml

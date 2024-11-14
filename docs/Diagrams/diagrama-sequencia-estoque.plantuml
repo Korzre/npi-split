@@ -1,0 +1,34 @@
+@startuml
+actor "Usuário (Administrador)" as usuario
+participant "View: index.blade.php" as view
+participant "ProdutoController" as produtoController
+participant "ProdutoConsumidoController" as produtoConsumidoController
+database "Model: Produto" as modelProduto
+database "Model: ProdutoConsumido" as modelProdutoConsumido
+
+== Visualizar Dados ==
+activate usuario
+usuario -> view: Acessa a página principal
+activate view
+deactivate usuario
+
+view -> produtoController: Solicita dados de produtos
+activate produtoController
+produtoController -> modelProduto: Consulta todos os produtos
+activate modelProduto
+modelProduto --> produtoController: Lista de produtos
+deactivate modelProduto
+deactivate produtoController
+
+view -> produtoConsumidoController: Solicita dados de produtos consumidos
+activate produtoConsumidoController
+produtoConsumidoController -> modelProdutoConsumido: Consulta todos os produtos consumidos
+activate modelProdutoConsumido
+modelProdutoConsumido --> produtoConsumidoController: Lista de produtos consumidos
+deactivate modelProdutoConsumido
+deactivate produtoConsumidoController
+
+view -> usuario: Exibe dados de produtos e produtos consumidos
+deactivate view
+
+@enduml

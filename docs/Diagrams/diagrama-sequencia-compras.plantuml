@@ -1,0 +1,89 @@
+@startuml
+actor "Usuário (Aluno)" as usuario
+participant "View: index.blade.php" as view
+participant "ProdutoController" as controller
+database "Model: Produto" as model
+
+== Autenticação ==
+activate usuario
+usuario -> view: Acessa a página principal
+activate view
+deactivate usuario
+
+== Listar Produtos ==
+view -> controller: Envia solicitação para listar produtos
+activate controller
+controller -> model: Solicitação para listar produtos do usuário logado
+activate model
+model --> controller: Lista de produtos
+deactivate model
+deactivate controller
+
+controller -> view: Retorna lista de produtos
+deactivate controller
+activate view
+deactivate view
+
+== Cadastrar Produto ==
+usuario -> view: Acessa a página de cadastro
+activate view
+view -> controller: Envia solicitação para cadastrar produto
+deactivate view
+activate controller
+
+controller -> usuario: Apresenta formulário de cadastro
+deactivate controller
+
+usuario -> view: Preenche dados do produto
+activate view
+deactivate view
+
+view -> controller: Envia solicitação para armazenar produto
+activate controller
+controller -> model: Armazena dados do novo produto
+activate model
+deactivate model
+deactivate controller
+
+controller -> usuario: Retorna sucesso
+deactivate controller
+
+== Atualizar Produto ==
+usuario -> view: Acessa a página de edição do produto
+activate view
+view -> controller: Envia solicitação para editar produto
+deactivate view
+activate controller
+
+controller -> usuario: Apresenta formulário de edição
+deactivate controller
+
+usuario -> view: Atualiza dados do produto
+activate view
+deactivate view
+
+view -> controller: Envia solicitação para atualizar produto
+activate controller
+controller -> model: Atualiza dados do produto no banco
+activate model
+deactivate model
+deactivate controller
+
+controller -> usuario: Retorna sucesso
+deactivate controller
+
+== Excluir Produto ==
+usuario -> view: Seleciona produto para excluir
+activate view
+view -> controller: Envia solicitação para excluir produto
+deactivate view
+activate controller
+
+controller -> model: Exclui produto do banco
+activate model
+deactivate model
+deactivate controller
+
+controller -> usuario: Retorna sucesso
+deactivate controller
+@enduml
