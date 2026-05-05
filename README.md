@@ -20,8 +20,7 @@
 
 ## Sobre o projeto
 
-O sistema proposto permitirá o gerenciamento do estoque e do rateamemento
-de todos produtos entre os alunos do NPI.
+Uma plataforma de gestão inteligente de estoque e rateio de custos desenvolvida para o ecossistema do NPI na UniFil. O sistema resolve o problema de logística e transparência financeira em compras coletivas, permitindo que usuários cadastrem produtos comprados, controlem o consumo individual e automatizem o cálculo de divisões de preço (rateio). Com integração de chaves PIX e monitoramento de status de pagamento, o projeto garante que a "vaquinha" do laboratório seja organizada, justa e livre de inadimplência.
 
 
 ## Ferramentas usadas
