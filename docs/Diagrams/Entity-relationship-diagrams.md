@@ -41,7 +41,4 @@ ACESSO{
    boolean pago
   }
 
-  
-
-
 ```
